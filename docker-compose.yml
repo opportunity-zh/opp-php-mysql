@@ -3,11 +3,11 @@ version: "3.8"
 # Services
 services:
   # Nginx Service
-  # http://localhost:8000 
+  # http://localhost:8001 
   nginx:
     image: nginx:1.19
     ports:
-      - 8000:80
+      - 8001:80
     volumes:
       - ./:/var/www/php
       - ./docker/nginx/conf.d:/etc/nginx/conf.d      

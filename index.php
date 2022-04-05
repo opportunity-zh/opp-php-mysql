@@ -11,8 +11,71 @@
     <script src="js/main.js"></script>
 </head>
 <body>
+    <h3>Hello, we are starting to work with Databases and PHP PDO!</h3>
+
     <?php
-        echo "Hello, we are starting to work with Databases and PHP PDO!"; 
+        // Prepare connection parameters.
+        $dbName = getenv('DB_NAME'); 
+        $dbUser = getenv('DB_USER'); 
+        $dbPassword = getenv('DB_PASSWORD'); 
+        $dbHost = getenv('DB_HOST'); 
+        
+        // Connect to mySQL database using PHP PDO Object.
+        $dbConnection = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPassword); 
+
+        // Tell PDO to throw Exceptions for every error.
+        $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Create the SELECT query and fetch the table rows as associative array.
+        $query = $dbConnection->query("select * from Books"); // https://www.php.net/manual/de/pdo.query.php
+        $query->fetch(PDO::FETCH_ASSOC); // https://www.php.net/manual/de/pdostatement.fetch.php
+
+        // Print HTML table with Books data.
+        echo '<div class="container-fluid p-5">';
+
+            echo '<div class="h3">My favourite Books</div>';
+            echo '<table class="table table-striped">';
+        
+                // Print table header.
+                $columnCount = $query->columnCount(); // https://www.php.net/manual/de/pdostatement.columncount.php
+                echo "<thead>";
+                    echo "<tr>";
+
+                        for ($counter = 0; $counter < $columnCount; $counter ++) {
+                            $columnInfo = $query->getColumnMeta($counter); // https://www.php.net/manual/de/pdostatement.getcolumnmeta.php
+                            $columnName = $columnInfo['name'];
+                            echo "<th>$columnName</th>"; 
+                        }
+                        
+                    echo '</tr>';    
+                echo "</thead>";
+                // End of table header.
+
+                // Print table rows.          
+                while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+
+                    foreach ($row as $columnName => $value) {
+                        echo "<td>$value</td>";
+                    }
+
+                    echo '</tr>';                    ;
+                }
+                // End of table rows.               
+
+            echo '</table>';        
+        echo '</div>'; 
+
+    /*
+        More ideas: 
+        - SELECT books by category
+        - SELECT books newer than YYYY
+        - SELECT books by keyword (title)
+
+        - INSERT INTO Books (using form, input fields, action: same page)
+                https://www.phptutorial.net/php-pdo/php-pdo-insert/
+    */
+
     ?>
     
 </body>
