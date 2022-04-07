@@ -82,7 +82,8 @@
         // echo '</pre>';
 
         /*
-            More ideas: 
+            PHP PDO - SQL I (index.php)
+
             - SELECT all books, Author and Title only
 
             - SELECT books by category
@@ -91,9 +92,36 @@
 
             - SELECT book by id
             - SELECT first book by category
+        */
+
+
+
+
+
+        /*
+            PHP PDO - SQL II (index-quiz.php)
+
+            - SELECT and list all questions
+            - SELECT and list all answers of a question
+            - SELECT and list each question with its answers
+        */
+
+
+
+        
+
+
+        /*
+            PHP PDO - SQL II (entry-form.php, registration.php)
 
             - INSERT INTO Books (using form, input fields, action: same page)
-                    https://www.phptutorial.net/php-pdo/php-pdo-insert/
+                https://www.phptutorial.net/php-pdo/php-pdo-insert/
+
+                a)  entry-form.php with input fields for book title, author, year, category etc.
+                    action="registration.php"
+                b)  registration.php which gets title, author, year, category from $_POST.
+                    With PDO connect to database and build a query with "INSERT INTO .....".
+                    Go for it!
         */
 
     ?>
