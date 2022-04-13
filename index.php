@@ -112,7 +112,7 @@
 
 
         /*
-            PHP PDO - SQL II (entry-form.php, registration.php)
+            PHP PDO - SQL III (entry-form.php, registration.php)
 
             - INSERT INTO Books (using form, input fields, action: same page)
                 https://www.phptutorial.net/php-pdo/php-pdo-insert/

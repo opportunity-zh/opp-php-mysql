@@ -2,3 +2,8 @@
     background-color: aquamarine;
     color: darkslategray;
 }
+
+.quiz-header {
+    max-height: 150px;
+    padding: 24px;
+}
