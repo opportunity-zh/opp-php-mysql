@@ -1,4 +1,10 @@
 <?php
+    // TODO: Move DB code into function.
+    // TODO: Call DB code only once, depending on $_SESSION.
+    // TODO: Single Choice, multiple choice (radio vs checkbox).
+    // TODO: Use JS validation (checkboxes, radio) with warning <p>.
+    // TODO: Handle transition from last question to result page.
+    // TODO: Back button mit JS.
     $currentQuestionIndex = 0;
 
     if (isset($_POST['lastQuestionIndex'])) {
@@ -69,25 +75,24 @@
         <h3>Frage <?php echo $currentQuestionIndex; ?></h3>
         <p><?php echo $questions[$currentQuestionIndex]['text']; ?></p>
             <form method="post">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                    <?php 
+
+                <?php
+                    $answers = $questions[$currentQuestionIndex]['answers'];
+
+                    for ($a = 0; $a < count($answers); $a++) {
+                        echo '<div class="form-check">';
+
+                        $isCorrect = $answers[$a]['isCorrect'];
+                        echo '<input class="form-check-input" type="checkbox" value="' . $isCorrect . '" id="flexCheckDefault">';
+                        echo '<label class="form-check-label" for="flexCheckDefault">';
+
                         $answers = $questions[$currentQuestionIndex]['answers'];
-                        $answer = $answers[0];
-                        echo $answer['answer']; 
-                    ?>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckChecked">
-                    <?php 
-                        $answers = $questions[$currentQuestionIndex]['answers'];
-                        echo $answers[1]['answer']; 
-                    ?>
-                    </label>
-                </div>
+                        echo $answers[$a]['answer'];
+
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                ?>
 
                 <!-- Hidden Fields -->
                 <input type="hidden" name="lastQuestionIndex" value="<?php echo $currentQuestionIndex; ?>">
