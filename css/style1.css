@@ -7,3 +7,8 @@
     max-height: 150px;
     padding: 24px;
 }
+
+.quiz-footer {
+    position: absolute;
+    bottom: 0px;
+}
