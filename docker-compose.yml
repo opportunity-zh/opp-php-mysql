@@ -24,7 +24,7 @@ services:
       DB_NAME: library
       DB_HOST: mysql
       DB_USER: webDev
-      DB_PASSWORD: opport2022
+      DB_PASSWORD: webDev
 
     depends_on:
       mysql:
@@ -37,7 +37,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: library
       MYSQL_USER: webDev
-      MYSQL_PASSWORD: opport2022
+      MYSQL_PASSWORD: webDev
     volumes:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - db_data:/var/lib/mysql
