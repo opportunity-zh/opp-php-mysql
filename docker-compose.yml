@@ -20,12 +20,13 @@ services:
     working_dir: /var/www/php
     volumes:
       - ./:/var/www/php
+      - ./docker/php/local_php.ini:/usr/local/etc/php/conf.d/local_php.ini         
     environment:
       DB_NAME: library
       DB_HOST: mysql
       DB_USER: webDev
       DB_PASSWORD: webDev
-
+      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"      
     depends_on:
       mysql:
         condition: service_healthy
@@ -39,8 +40,10 @@ services:
       MYSQL_USER: webDev
       MYSQL_PASSWORD: webDev
     volumes:
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf   
       - db_data:/var/lib/mysql
+      # or this to have the directory within the project: - ./db_data:/var/lib/mysql
+      
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       interval: 5s
