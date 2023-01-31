@@ -1,4 +1,4 @@
 <?php
 
-    echo "hellooooo from db.php!"; 
+    echo "<p>hellooooo from db.php!</p>"; 
 ?>
