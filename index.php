@@ -18,6 +18,7 @@
         
         //echo get_include_path(); 
         
+        include 'subfolder/utils.php'; 
         include 'db.php'; 
 
         echo "<p>Hello, we are starting to work with Databases and PHP PDO!</p>"; 
