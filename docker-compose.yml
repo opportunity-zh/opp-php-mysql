@@ -3,30 +3,31 @@ version: "3.8"
 # Services
 services:
   # Nginx Service
-  # http://localhost:8000 
+  # http://localhost:8000
   nginx:
-    image: nginx:1.19
+    image: nginx:1.19-alpine
+    container_name: nginx-PHP
+    restart: unless-stopped
     ports:
       - 8000:80
     volumes:
-      - ./:/var/www/php
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d      
+      - ./src:/var/www/app
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
-      - php
+      - app
 
-  # PHP 
-  php:
+  # PHP App Service
+  app:
     build: ./docker/php
-    working_dir: /var/www/php
+    working_dir: /var/www/app
     volumes:
-      - ./:/var/www/php
-      - ./docker/php/local_php.ini:/usr/local/etc/php/conf.d/local_php.ini         
+      - ./src:/var/www/app
     environment:
       DB_NAME: library
       DB_HOST: mysql
       DB_USER: webDev
       DB_PASSWORD: webDev
-      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"      
+      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
     depends_on:
       mysql:
         condition: service_healthy
@@ -40,17 +41,17 @@ services:
       MYSQL_USER: webDev
       MYSQL_PASSWORD: webDev
     volumes:
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf   
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - db_data:/var/lib/mysql
       # or this to have the directory within the project: - ./db_data:/var/lib/mysql
-      
+
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       interval: 5s
       retries: 10
 
   # PhpMyAdmin Service
-  # http://localhost:8080 
+  # http://localhost:8080
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5
     ports:
